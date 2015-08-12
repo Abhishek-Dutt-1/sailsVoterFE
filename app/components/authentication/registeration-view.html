@@ -1,0 +1,77 @@
+<mainmenu></mainmenu>
+
+<div class="row">
+    <div class="col-xs-12">
+        <h2>New User</h2>
+
+        <div ng-show="serverErrors" class="alert alert-danger" role="alert">
+            <!--
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            -->
+            <span ng-repeat="err in serverErrors">
+                {{err}}<br/>
+            </span>
+        </div>
+
+        <form class="form-horizontal" name="signupForm" role="form" novalidate>
+            <div class="form-group">
+                <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" ng-model="newUser.email" required>
+                    <!--
+                        <span ng-show="signupForm.inputEmail.$dirty && signupForm.inputEmail.$error.email">
+                            <p class="text-danger">Invalid Email</p>
+                        </span>
+                        -->
+                    <div ng-show="signupForm.$submitted || signupForm.inputEmail.$touched">
+                        <span ng-show="signupForm.inputEmail.$error.required" class="text-danger">Email is required</span>
+                        <span ng-show="signupForm.inputEmail.$error.email" class="text-danger">Invalid Email</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" ng-model="newUser.password" ng-minlength="6" required>
+                    <!--
+                        <span ng-show="signupForm.inputPassword.$dirty && signupForm.inputPassword.$error.required">
+                            <p class="text-danger">Password is required.</p>
+                        </span>
+                    -->
+                        <div ng-show="signupForm.$submitted || signupForm.inputPassword.$touched">
+                            <div ng-show="signupForm.inputPassword.$error.required" class="text-danger">Password is required.</div>
+                            <div ng-show="signupForm.inputPassword.$error.minlength" class="text-danger">Password must be 6 characters or more.</div>
+                        </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputConfirmPassword" class="col-sm-2 control-label">Confirm Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword" placeholder="Password" ng-model="newUser.confirmpassword" 
+                        ui-validate="'$value==newUser.password'" ui-validate-watch=" 'newUser.password' " required>
+                        <!--
+                        <span ng-show="signupForm.inputConfirmPassword.$dirty && signupForm.inputConfirmPassword.$error.validator">
+                            <p class="text-danger">Password Confirmation is required.</p>
+                        </span>
+                        -->
+                        <div ng-show="signupForm.$submitted || signupForm.inputConfirmPassword.$touched">
+                            <div ng-show="signupForm.inputConfirmPassword.$error.validator || signupForm.inputConfirmPassword.$error.required" class="text-danger">Password confirmation is required.</div>
+                        </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default" ng-click="signupNewUser(newUser)" ng-disabled="signupFormProcessing">Sign Up!</button>
+                </div>
+            </div>
+        </form> 
+        <a type="button" class="btn btn-primary btn-block" ng-href="#/login" >Already registered? Login!</a>
+
+    </div>
+</div>
+
+<footer></footer>
